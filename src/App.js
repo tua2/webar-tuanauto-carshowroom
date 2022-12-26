@@ -1,25 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import Showroom from './components/showroom';
+import useWindowSize from './hooks/useWindowSize';
+import rotatePhone from './assets/rotate-phone.png';
 
-function App() {
+export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ScreenSizedComponent />
     </div>
   );
 }
 
-export default App;
+const ScreenSizedComponent = () => {
+  const size = useWindowSize();
+
+  if (size.width <= 666) {
+    return (
+      <div className="mobile">
+        <div className="mobileBrand">Tuan Auto</div>
+        <div className="mobileContent">
+          <div>
+            <img src={rotatePhone} width={100} alt="rotate-phone" />
+            <div className="mobileText">
+              Please rotate your device to browse our cars.
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return <Showroom />;
+};
